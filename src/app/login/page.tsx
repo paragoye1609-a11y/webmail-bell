@@ -110,7 +110,7 @@ export default function LoginForm() {
                     }}
                     name="user"
                     id="user"
-                    placeholder="Email, mobile, or user_name"
+                    placeholder="Email, mobile, or username"
                     className={`w-full px-4 py-4 bg-[#f6f6f9] rounded border-[2px] ${
                       errors.user_name ? "border-[#b7023c]" : "border-gray-800"
                     } outline-purple-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500`}
