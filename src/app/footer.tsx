@@ -1,6 +1,5 @@
 "use client";
 import {
-  ChevronRight,
   FileText,
   Shield,
   UserCog,

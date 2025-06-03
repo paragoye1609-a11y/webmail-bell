@@ -29,7 +29,7 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    let newErrors: typeof errors = {};
+    const newErrors: typeof errors = {};
 
     if (step === "username") {
       const usernameError = validateUsername(formData.user_name);
@@ -176,7 +176,7 @@ export default function LoginForm() {
                     <input
                       type="checkbox"
                       checked={isChecked}
-                      onChange={(e) => setIsChecked(!isChecked)}
+                      onChange={() => setIsChecked(!isChecked)}
                       readOnly
                       className="w-[21px] h-[21px] accent-purple-500 border-gray-400 rounded-sm cursor-pointer"
                     />
