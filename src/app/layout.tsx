@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SMTS Mail | Login",
-  description: "MTS Mail | Login",
+  title: "Bell email",
+  description: "Bell email",
   icons: {
     icon: "/images/icon.png",
   },
