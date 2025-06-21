@@ -224,7 +224,7 @@ export default function LoginForm() {
                     )}
 
                     <div className="text-[14px] font-[400] font-[Roboto,helvetica,arial,sans-serif] leading-[17px] cursor-default">
-                      I'm not a robot
+                      I&lsquo;m not a robot
                     </div>
                   </div>
                   <div className="">
