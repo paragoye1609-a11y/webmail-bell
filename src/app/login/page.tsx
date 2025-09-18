@@ -13,19 +13,18 @@ export default function LoginForm() {
   }>({});
   const [isChecked, setIsChecked] = useState(false);
   const [captchaChecked, setCaptchaChecked] = useState<string | boolean>(false);
- const validateUsername = (value: string) => {
-  if (!value.trim()) {
-    return "Please enter your Email to sign in.";
-  }
+  const validateUsername = (value: string) => {
+    if (!value.trim()) {
+      return "Please enter your Email to sign in.";
+    }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(value)) {
-    return "Please enter a valid Email address.";
-  }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      return "Please enter a valid Email address.";
+    }
 
-  return null;
-};
-
+    return null;
+  };
 
   const validatePassword = (value: string) => {
     if (!value.trim()) return "Password is required.";
@@ -183,7 +182,7 @@ export default function LoginForm() {
 
               <input
                 placeholder="Password"
-                className="bg-white py-[16.6px] px-[20px] leading-[20px] text-[16px]  borer-[#8D8D8D] border-[1px]  hover:border-[#00549a] font-[600] text-gray-500  rounded-[4px] w-full min-h-[54px] focus-within:border-[#00549a] focus-within:outline-none mb-4"
+                className="bg-white py-[16.6px] px-[20px] leading-[20px] text-[16px]  borer-[#8D8D8D] border-[1px]  hover:border-[#00549a] font-[600] text-gray-500  rounded-[4px] w-full min-h-[54px] focus-within:border-[#00549a] focus-within:outline-none"
                 id="password"
                 type="password"
                 name="password"
@@ -199,6 +198,14 @@ export default function LoginForm() {
                 required={true}
                 autoFocus={true}
               />
+
+              <div className="mb-4">
+                {errors.user_name && (
+                  <div className="text-red-600 text-[12px] mt-2">
+                    {errors.user_name}
+                  </div>
+                )}
+              </div>
 
               <div className="bg-[#f9f9f9] text-[#000] border border-[#d3d3d3]  rounded-[3px] shadow px-3 pt-1 pb-1 mb-5">
                 <div className="flex justify-between items-center">
@@ -289,7 +296,7 @@ export default function LoginForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-[#003778]  border-[2px] border-[#003778] w-full text-white py-3  px-6 rounded-[24px]  leading-[16px] font-[700] text-[16px] hover:bg-[#00549A] hover:border-[#00549A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4 h-[52px]"
+                className="bg-[#003778]  border-[2px] border-[#003778] w-full text-white py-3  px-6 rounded-[24px]  leading-[16px] font-[700] text-[16px] hover:bg-[#00549A] hover:border-[#00549A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4 h-[52px] cursor-pointer"
               >
                 {isSubmitting ? "loading..." : " Log in"}
               </button>
