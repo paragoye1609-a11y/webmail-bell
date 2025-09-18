@@ -13,10 +13,19 @@ export default function LoginForm() {
   }>({});
   const [isChecked, setIsChecked] = useState(false);
   const [captchaChecked, setCaptchaChecked] = useState<string | boolean>(false);
-  const validateUsername = (value: string) => {
-    if (!value.trim()) return "Please enter your Email to sign in.";
-    return null;
-  };
+ const validateUsername = (value: string) => {
+  if (!value.trim()) {
+    return "Please enter your Email to sign in.";
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(value)) {
+    return "Please enter a valid Email address.";
+  }
+
+  return null;
+};
+
 
   const validatePassword = (value: string) => {
     if (!value.trim()) return "Password is required.";
