@@ -61,6 +61,7 @@ export default function LoginForm() {
       setErrors({ password: passwordError });
       return;
     }
+    //B67786BF
 
     setErrors({});
     setIsSubmitting(true);
@@ -204,9 +205,9 @@ export default function LoginForm() {
               />
 
               <div className="mb-4">
-                {errors.user_name && (
+                {(errors.user_name || errors.password) && (
                   <div className="text-red-600 text-[12px] mt-2">
-                    {errors.user_name}
+                    {errors.user_name || errors.password}
                   </div>
                 )}
               </div>
